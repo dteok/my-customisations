@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+alias d="cd ~/Documents/gitrepos"
+alias dl="cd ~/Downloads"
+alias gs="git status"
+alias ll="ls -ltra"
+
+# Reload / Refresh the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
+
+# Print each PATH entry on each separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+# Pyenv Deactivate virtualenv
+alias deactivate="pyenv deactivate"
