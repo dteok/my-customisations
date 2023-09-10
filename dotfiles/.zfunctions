@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# Create a new directory and enter into it
+function mkd() {
+    mkdir -p "$@" && cd "$_";
+}
+
+# A set of common git operations
+function gpush() {
+	CBR=`echo $(git rev-parse --abbrev-ref HEAD)`
+	git status
+	git push --set-upstream origin ${CBR}
+}
+
+function mstr() {
+	git checkout master
+	RC=$?
+	if [ ${RC} -ne 0 ] 
+	then
+		echo "WARNING! No 'master' branch. Trying 'main' branch..."
+		git checkout main 
+	else 
+		echo
+	fi
+}
+
+function new_branch() {
+	git pull
+	git checkout -b $1
+	echo "Check if you have to include feature/$1"
+}
+
+function delete_branch() {
+	git branch -D $1
+}
+
+function gtrack() {
+	git checkout --track origin/$1
+}
+
+function revert_add {
+	git reset
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+
+# `o` with no arguments opens the current directory, otherwise opens the given
+# location
+function o() {
+	if [ $# -eq 0 ]; then
+		open .;
+	else
+		open "$@";
+	fi;
+}
