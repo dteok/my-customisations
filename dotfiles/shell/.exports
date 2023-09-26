@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+
+# Make vim the default editor.
+export EDITOR='vim';
+
+# Enable persistent REPL history for `node`.
+export NODE_REPL_HISTORY=~/.node_history;
+# Allow 32³ entries; the default is 1000.
+export NODE_REPL_HISTORY_SIZE='32768';
+# Use sloppy mode by default, matching web browsers.
+export NODE_REPL_MODE='sloppy';
+
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
+export PYTHONIOENCODING='UTF-8';
+
+# Increase Bash history size. Allow 32³ entries; the default is 500.
+export HISTSIZE='32768';
+export HISTFILESIZE="${HISTSIZE}";
+export HISTTIMEFORMAT="%Y-%m-%d %T :: "
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
+# Exclude certain words from being stored into history
+export HISTIGNORE='history:cd -:refresh:ls *:d:dl:ll:g *:'
+
+# Prefer US English and use UTF-8.
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+
+# Don’t clear the screen after quitting a manual page.
+export MANPAGER='less -X';
+
+# Avoid issues with `gpg` as installed via Homebrew.
+# https://stackoverflow.com/a/42265848/96656
+export GPG_TTY=$(tty);
+
+# Hide the “default interactive shell is now zsh” warning on macOS.
+export BASH_SILENCE_DEPRECATION_WARNING=1;
+
+# Set path for pyenv
+# see .path
+
+# pyenv-virtualenv: prompt changing will be removed from future release.
+# the following will simulate behaviour
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# To prevent accidental pip installation packages to globally on local machine
+# export PIP_REQUIRE_VIRTUALENV=true
+
+# Set JAVA_HOME and SPARK_HOME
+# export JAVA_HOME=$(/usr/libexec/java_home)
+# export SPARK_HOME=/Users/dantvli/Downloads/softwares/spark-2.4.3-bin-spark-2.4.3-bin-hadoop2.8
+# export SPARK_LOCAL_IP=127.0.0.1
+
+# Set AWS creds
+export AWS_ACCESSKEY=AKIAU454VVWZWU2PW43R
+export AWS_SECRETKEY=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
+
+# OpenAI API keys
+export OPENAI_API_KEY=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
+
+# GCloud -- to obtain path to ADC, run `gcloud auth application-default login`
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/danny.teok/.config/gcloud/application_default_credentials.json
+
+# Starburst -- as per ~/Documents/gitrepos/starburst-deploy -- line 68 to 126
+## Deploy Starburst ##
+export registry_usr=""           # Harbor Repository username provided to you by Starburst
+export registry_pwd=""           # Harbor Repository passowrd provided to you by Starburst
+export admin_usr=              # Choose an admin user name you will use to login to Starburst & Ranger. Do NOT use 'admin'
+export admin_pwd=              # Choose an admin password you will use to login to Starburst & Ranger. MUST be a minimum of 8 characters and contain at least one uppercase, lowercase and numeric value.
+
+# Google Cloud DNS
+# The Google Cloud Project ID where your DNS Zone is defined. This may be different to the project that you are deployiong the cluster to. Either way, this value will need to be set.
+export google_cloud_project_dns="fake-dns"
+# The DNS Zone name (NOT the DNS Name). You can find this value in https://console.cloud.google.com/net-services/dns/zones
+export google_cloud_dns_zone="dummy-zone"
+# These next values are automatically set based on your input values
+# We'll automatically get the domain for the zone you are selecting. Comment this out if you don't need DNS
+# export google_cloud_dns_zone_name=$(gcloud dns managed-zones describe ${google_cloud_dns_zone:?Zone not set} --project ${google_cloud_project_dns:?Project ID not set} | grep dnsName | awk '{ print $2 }' | sed 's/.$//g')
+
+# Cluster specifics
+# License file provided by Starburst. Not required if you are deploying via the Google Cloud Marketplace
+export starburst_license=starburstdata.license
+# Zone where the cluster will be deployed. e.g. us-east4-b
+export zone="eu-west2"
+# Google Cloud Project ID where the cluster is being deployed
+export google_cloud_project="data-internal-researchdev"
+# Google Service account name. The service account is used to access services like GCS and BigQuery, so you should ensure that it has the relevant permissions for these
+export iam_account="data-int-rnd-svc-acct@data-internal-researchdev.iam.gserviceaccount.com"
+# Give your cluster a name
+export cluster_name="dev-starburst-c1"
+
+# Set the machine type here. Feel free to change these values to suit your needs.
+export base_node_type="e2-standard-8"
+export worker_node_type="e2-standard-8"
+
+# This is the public URL to access Starburst
+export starburst_url=${cluster_name:?Cluster Name not set}-starburst.${google_cloud_dns_zone_name}
+# This is the public URL to access Ranger
+export ranger_url=${cluster_name:?Cluster Name not set}-ranger.${google_cloud_dns_zone_name}
+
+# Insights DB details
+# These are the defaults if you choose to deploy your postgresDB to the K8s cluster
+# You can adjust these to connect to an external DB, but be advised that the nodes in the K8s cluster must have access to the URL
+export database_connection_url=jdbc:postgresql://postgresql:5432/insights
+export database_username=postgres
+export database_password=password123
+
+# Data Products. Leave the password unset as below, if you are connecting directly to the coordinator on port 8080
+export data_products_enabled=true
+export data_products_jdbc_url=jdbc:trino://coordinator:8080
+export data_products_username=${admin_usr}
+export data_products_password=
+
+# Starburst Access Control
+export starburst_access_control_enabled=true
+export starburst_access_control_authorized_users=${admin_usr}
+
+# Starburst Harbor Creds
+export HARBOR_USER=partner-GlobalLogicUK
+export HARBOR_PWD=QHkk3qknq3Nkh1q1
+export HARBOR_EMAIL=danny.teok@globallogic.com
+
+# These last remaining values are static
+export xtra_args_hive="--set objectStorage.gs.cloudKeyFileSecret=service-account-key"
+export xtra_args_starburst="--values starburst.catalog.yaml"
+export xtra_args_ranger=""
+
+# Kubernetes K9s client (terminal)
+export TERM=xterm-256color
+
+# Starship configurations
+## Environment variable for Starship
+export STARSHIP_CONFIG=~/.config/starship.toml
+## Starship logging
+export STARSHIP_CACHE=~/.starship/cache
