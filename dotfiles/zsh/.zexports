@@ -1,0 +1,40 @@
+#!/usr/bin/env zsh
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment, as well as local
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Don't clear the screen after quitting a manual page (man command)
+export MANPAGER='less -X';
+
+# Hide the "default interactive shell is now zsh" warning on MacOS
+export BASH_SILENCE_DEPRECATION_WARNING=1;
+
+# pyenv-virtualenv: prompt changing will be removed from the future release.
+# the following will simulate behaviour
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr
+export PYTHONIOENCODING='UTF-8'
+
+# Increase Bash history size.
+export HISTSIZE='32768'
+export HISTFILESIZE="${HISTSIZE}"
+export HISTTIMEFORMAT="%Y-%m-%d %T :: "
+
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
