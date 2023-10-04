@@ -3,7 +3,7 @@
 # Any changes to the actual are to be replicated here.
 
 # Load shell dotfiles, and then some:
-for file in ~/Documents/my-customisations/dotfiles/.z{path,exports,aliases,functions,extra}; do
+for file in ~/Documents/my-customisations/dotfiles/zsh/.z{path,exports,aliases,functions,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
